@@ -19,8 +19,8 @@
     top: 0;
     width: 100%;
     background: #35495e;
-    padding-top: 25px;
-    height: 45px;
+/*    padding-top: 25px;
+    height: 45px;*/
     z-index: 1;
   }
 </style>

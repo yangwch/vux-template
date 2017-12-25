@@ -1,6 +1,4 @@
-import axios from 'axios';
+import axios from './fetch'
 
-export default {
-  /* 登录 */
-  login: data => axios.post('/api/login', data);
-}
+/* 登录 */
+export const login = data => axios.post('/api/Account/Authenticate', data)

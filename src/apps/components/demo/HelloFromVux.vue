@@ -7,7 +7,10 @@
     <group title="cell demo">
       <cell title="VUX" value="cool" is-link></cell>
     </group>
-    <img :src="msg">
+    <ul>
+      <li v-for="(item, index) in items">.. {{item.name}}<br>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -28,15 +31,28 @@ export default {
       // preserves its current state and we are modifying
       // its initial state.
       msg: 'Hello World!',
-      bridge: window.WebViewJavascriptBridge
+      bridge: window.WebViewJavascriptBridge,
+      items: []
     }
   },
   methods: {
     showCamera () {
       let self = this
+      /*
       window.WebViewJavascriptBridge.callHandler('cameraPic', null, (response) => {
         self.msg = response
       })
+      */
+      var cmr = window.plus.camera.getCamera()
+
+      cmr.captureImage(function (p) {
+        window.plus.io.resolveLocalFileSystemURL(p, function (entry) {
+          self.createItem(entry)
+        }, function (e) { })
+      }, function (e) { }, {filename: '_doc/camera/', index: 1})
+    },
+    createItem (entry) {
+      this.items.push(entry)
     }
   }
 }

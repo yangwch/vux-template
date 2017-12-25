@@ -4,6 +4,7 @@ import Vue from 'vue'
 import FastClick from 'fastclick'
 import App from './App'
 import router from './router'
+import store from './store'
 import plugin from './apps/plugin'
 import 'animate.css'
 
@@ -14,6 +15,7 @@ Vue.config.productionTip = false
 Vue.use(plugin)
 /* eslint-disable no-new */
 new Vue({
+  store,
   router,
   render: h => h(App)
 }).$mount('#app-box')

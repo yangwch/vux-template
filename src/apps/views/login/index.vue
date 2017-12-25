@@ -16,7 +16,7 @@
       </p>
       <p class="row">
         <checker v-model="autoLogin" default-item-class="autologin" selected-item-class="autologin-selected">
-          <checker-item :value="'1'"><i :class="{'iconfont': true, 'icon-success': autoLogin, 'icon-check-normal': !autoLogin}"></i>自动登录</checker-item>
+          <checker-item :value="'true'"><i :class="{'iconfont': true, 'icon-success': autoLogin, 'icon-check-normal': !autoLogin}"></i>自动登录</checker-item>
         </checker>
       </p>
       <x-button type="primary" :show-loading="loading" action-type="button" @click.native="login">登录</x-button>
@@ -25,6 +25,8 @@
 </template>
 <script>
   import {Checker, CheckerItem, XButton} from 'vux'
+  import {login} from '@/api'
+  import {mapGetters} from 'vuex'
   export default {
     components: {
       Checker,
@@ -37,13 +39,31 @@
           'userName': 'admin',
           'password': '123456'
         },
-        autoLogin: '',
+        autoLogin: this.$store.state.autoLogin,
         loading: false
       }
     },
+    computed: {
+      ...mapGetters({token: 'getToken'})
+    },
     methods: {
-      login () {
-        this.$router.push({name: 'home'})
+      async login () {
+        let result = await login({'usernameOrEmailAddress': this.userInfo.userName, 'password': this.userInfo.password})
+        if (result && result.success && result.result) {
+          // 缓存
+          this.$store.commit('setToken', result.result)
+          this.$store.commit('setAutoLogin', this.autoLogin)
+          this.$router.push({name: 'home'})
+        } else {
+          this.$vux.toast.text((result.error && result.error.message) || '登录失败')
+        }
+      }
+    },
+    watch: {
+      token: (newVal, oldVal) => {
+        if (this.token && this.autoLogin) {
+          this.$router.push({name: 'home'})
+        }
       }
     }
   }

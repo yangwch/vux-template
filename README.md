@@ -34,7 +34,6 @@ npm run dev
 # 发布到dist
 npm run build
 
-# 
 # 先用HBuilder打开项目目录，运行
 npm run app
 

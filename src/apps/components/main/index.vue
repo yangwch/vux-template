@@ -1,5 +1,5 @@
 <template>
-  <view-box ref="viewBox" body-padding-top="70px">
+  <view-box ref="viewBox">
     <!-- 页面头部 -->
     <yt-header slot="header">
       <x-header>
