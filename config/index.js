@@ -3,14 +3,15 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-// const publishPath = path.resolve(__dirname, '../dist')
-const absolutePath = 'E:/node_pro/YTOS.AJ.SM/YTOS.SMSJ.MOBILE/platform/android/app/src/main/assets'
-const publishPath = path.resolve(absolutePath)
-const indexPath = path.resolve(absolutePath + '/index.html')
+const publishPath = path.resolve(__dirname, '../dist')
+const indexPath = path.resolve(__dirname, '../dist/index.html')
+//const absolutePath = 'E:/node_pro/YTOS.AJ.SM/YTOS.SMSJ.MOBILE/platform/android/app/src/main/assets'
+//const publishPath = path.resolve(absolutePath)
+//const indexPath = path.resolve(absolutePath + '/index.html')
 
 module.exports = {
   dev: {
-
+    env: require('./dev.env'),
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -64,7 +65,7 @@ module.exports = {
      * Source Maps
      */
 
-    productionSourceMap: true,
+    productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 
