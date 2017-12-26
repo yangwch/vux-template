@@ -15,15 +15,8 @@
 </template>
 
 <script>
-import { Group, Cell, XHeader, Toast } from 'vux'
 
 export default {
-  components: {
-    Group,
-    Cell,
-    XHeader,
-    Toast
-  },
   data () {
     return {
       // note: changing this line won't causes changes

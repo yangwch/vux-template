@@ -21,7 +21,7 @@ const mutations = {
     state.user = user
   },
   setToken (state, token) {
-    token = 'Bearer ' + token
+    token = token ? 'Bearer ' + token : ''
     storage.set('token', token)
     state.token = token
   },

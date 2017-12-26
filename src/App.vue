@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="transitionName">
+  <div id="app">
     <router-view></router-view>
   </div>
 </template>
@@ -47,12 +47,13 @@ export default {
 
 <style lang="less">
 @import '~vux/src/styles/reset.less';
-
+@import './style/variables.less';
+@import './style/common.less';
 html, body, #app {
   height: 100%;
 }
 body {
-  background-color: #fbf9fe;
+  background-color: @bg-color;
   height: 100%;
 }
 </style>

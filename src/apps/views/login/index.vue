@@ -24,15 +24,9 @@
   </div>
 </template>
 <script>
-  import {Checker, CheckerItem, XButton} from 'vux'
   import {login} from '@/api'
   import {mapGetters} from 'vuex'
   export default {
-    components: {
-      Checker,
-      CheckerItem,
-      XButton
-    },
     data () {
       return {
         userInfo: {
@@ -46,9 +40,16 @@
     computed: {
       ...mapGetters({token: 'getToken'})
     },
+    created () {
+      if (this.token && this.autoLogin) {
+        this.$router.push({name: 'home'})
+      }
+    },
     methods: {
       async login () {
+        this.loading = true
         let result = await login({'usernameOrEmailAddress': this.userInfo.userName, 'password': this.userInfo.password})
+        this.loading = false
         if (result && result.success && result.result) {
           // 缓存
           this.$store.commit('setToken', result.result)
@@ -56,13 +57,6 @@
           this.$router.push({name: 'home'})
         } else {
           this.$vux.toast.text((result.error && result.error.message) || '登录失败')
-        }
-      }
-    },
-    watch: {
-      token: (newVal, oldVal) => {
-        if (this.token && this.autoLogin) {
-          this.$router.push({name: 'home'})
         }
       }
     }
@@ -76,6 +70,7 @@
     .autologin .iconfont
       margin-right .5em
       cursor pointer
+      font-weight bold
   .bg
     position absolute
     width 100%

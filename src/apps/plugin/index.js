@@ -1,7 +1,7 @@
-import {ViewBox, XHeader, Tabbar, TabbarItem, Group, Cell, XButton, XInput, ToastPlugin} from 'vux'
+import {ViewBox, XHeader, Tabbar, TabbarItem, Group, Cell, XButton, XInput, ToastPlugin, Checker, CheckerItem, CheckIcon} from 'vux'
 import ytHeader from './header'
 const vuxComps = {
-  ytHeader, ViewBox, XHeader, Tabbar, TabbarItem, Group, Cell, XButton, XInput
+  ytHeader, ViewBox, XHeader, Tabbar, TabbarItem, Group, Cell, XButton, XInput, Checker, CheckerItem, CheckIcon
 }
 export default {
   install (Vue) {
