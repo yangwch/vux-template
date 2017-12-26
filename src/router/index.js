@@ -26,7 +26,7 @@ export default new Router({
       },
       children: [
         {
-          path: '',
+          path: '/',
           name: 'home',
           component: home,
           meta: {

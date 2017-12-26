@@ -8,11 +8,11 @@
     <router-view :class="transitionName"></router-view>
     <!-- 底部导航 -->
     <tabbar slot="bottom">
-      <tabbar-item :selected="$route.path=='/main'" link="/main">
+      <tabbar-item :selected="$route.name=='home'" link="/main">
         <i class="iconfont icon-message" slot="icon"></i>
         <span slot="label">Explore</span>
       </tabbar-item>
-      <tabbar-item :selected="$route.path=='/demo'" link="/demo">
+      <tabbar-item :selected="$route.name=='demo'" link="/demo">
         <i class="iconfont icon-time" slot="icon"></i>
         <span slot="label">示例</span>
       </tabbar-item>
