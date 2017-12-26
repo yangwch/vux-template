@@ -9,6 +9,7 @@ export default {
   name: 'app',
   data () {
     return {
+      ws: null,
       transitionName: 'animated fadeIn'
     }
   },
@@ -18,31 +19,27 @@ export default {
     }
   },
   created () {
-    this.initJsBridge()
+    if (window.plus) {
+      this.plusReady()
+    } else {
+      document.addEventListener('plusready', this.plusReady, false)
+    }
   },
   methods: {
-    connectWebViewJavascriptBridge (callback) {
-      if (window.WebViewJavascriptBridge) {
-        callback(window.WebViewJavascriptBridge)
-      } else {
-        window.document.addEventListener('WebViewJavascriptBridgeReady', () => {
-          callback(window.WebViewJavascriptBridge)
-        }, false)
-      }
-    },
-    /* 初始注册返回事件 */
-    initJsBridge () {
+    plusReady () {
       let self = this
-      this.connectWebViewJavascriptBridge(bridge => {
-        bridge.init()
-        bridge.registerHandler('clickBackButton', (data, responseCallback) => {
-          self.goBack()
-          responseCallback(null)
-        })
-      })
+      window.plus.key.addEventListener('backbutton', function () {
+        self.goBack() && window.confirm('确认退出？') && window.plus.runtime.quit()
+      }, false)
     },
+    /* 返回，若已在首页，则返回true，提示用户是否退出系统 */
     goBack () {
-      this.$router.go(-1)
+      if (this.$route.path !== '/') {
+        this.$router.go(-1)
+        return false
+      } else {
+        return true
+      }
     }
   }
 }
